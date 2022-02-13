@@ -4,25 +4,32 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 15.0f;
+    public float 
+        speed,      // Rate of forward/backward movement
+        turnSpeed;
 
-    // Start is called before the first frame update
+    private float
+        horizontalInput,
+        verticalInput;
+
     void Start()
     {
-        
+        // Initialize rate-of-change variables
+        speed = 25.0f;
+        turnSpeed = 75.0f;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //transform.Translate(0, 0, 1);
+        // Logs time, remove this?
+        // Debug.Log(Time.deltaTime);
 
-        //transform.Translate(new Vector3(0, 0, 1));
+        // Get input from player
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
 
-        //transform.Translate(Vector3.forward);
-
-        //Debug.Log(Time.deltaTime);
-
-        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        // Move vehicle based on player input
+        transform.Translate(Vector3.forward * Time.deltaTime * speed * verticalInput);
+        transform.Rotate(Vector3.up, Time.deltaTime * turnSpeed * horizontalInput);
     }
 }
